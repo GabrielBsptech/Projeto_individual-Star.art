@@ -7,23 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<script>
-let campos = ["email", "senha"]
-let rotulos = ["Email*", "Senha*"]
-let tipos = ["email", "password"]
-let dicas = ["seuemail@.com", "suasenha1234"]
-
-let camposHtml = ""
-
-for (let i = 0; i < campos.length; i++) {
-  camposHtml += `
-    <label for="${campos[i]}">${rotulos[i]}</label>
-    <input type="${tipos[i]}" id="${campos[i]}" placeholder="${dicas[i]}" oninput="verificarCampos()">
-  `
-}
-
-document.body.innerHTML = `
   <div class="logo">colocar logo</div>
 
   <div class="caixa">
@@ -31,7 +14,11 @@ document.body.innerHTML = `
 
     <h2>Faça login</h2>
 
-    ${camposHtml}
+    <label for="email">Email*</label>
+    <input type="email" id="email" placeholder="seuemail@.com" oninput="verificarCampos()">
+
+    <label for="senha">Senha*</label>
+    <input type="password" id="senha" placeholder="suasenha1234" oninput="verificarCampos()">
 
     <button id="botaoEntrar" onclick="entrar()" disabled>Entrar</button>
     <p id="mensagem"></p>
@@ -39,20 +26,50 @@ document.body.innerHTML = `
     <p class="texto">Não tem uma conta?</p>
     <a href="#" class="link">Cadastre-se agora</a>
   </div>
-`
 
-function verificarCampos() {
-  if (email.value == "" || senha.value == "") {
-    botaoEntrar.disabled = true
-  } else {
-    botaoEntrar.disabled = false
-  }
-}
+  <script>
+    let campos = [email, senha]
+    let nomes = ["email", "senha"]
 
-function entrar() {
-  mensagem.textContent = "Login feito com sucesso!"
-}
-</script>
+    function verificarCampos() {
+      let preenchido = true
 
+      for (let i = 0; i < campos.length; i++) {
+        if (campos[i].value == "") {
+          preenchido = false
+        }
+      }
+
+      if (preenchido == true) {
+        botaoEntrar.disabled = false
+      } else {
+        botaoEntrar.disabled = true
+      }
+    }
+
+    function entrar() {
+      mensagem.style.color = "red"
+
+      for (let i = 0; i < campos.length; i++) {
+        if (campos[i].value == "") {
+          mensagem.textContent = "Preencha o campo " + nomes[i]
+          return
+        }
+      }
+
+      if (email.value.includes("@") == false) {
+        mensagem.textContent = "O email precisa ter @"
+        return
+      }
+
+      if (senha.value.length < 6) {
+        mensagem.textContent = "A senha precisa ter pelo menos 6 caracteres"
+        return
+      }
+
+      mensagem.style.color = "green"
+      mensagem.textContent = "Login feito com sucesso!"
+    }
+  </script>
 </body>
 </html>
