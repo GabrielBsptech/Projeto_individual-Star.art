@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>star.art - Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<script>
+let campos = ["email", "senha"]
+let rotulos = ["Email*", "Senha*"]
+let tipos = ["email", "password"]
+let dicas = ["seuemail@.com", "suasenha1234"]
+
+let camposHtml = ""
+
+for (let i = 0; i < campos.length; i++) {
+  camposHtml += `
+    <label for="${campos[i]}">${rotulos[i]}</label>
+    <input type="${tipos[i]}" id="${campos[i]}" placeholder="${dicas[i]}" oninput="verificarCampos()">
+  `
+}
+
+document.body.innerHTML = `
+  <div class="logo">colocar logo</div>
+
+  <div class="caixa">
+    <img class="icone-voltar" src="assets/seta_voltar.png" alt="Voltar" onclick="history.back()">
+
+    <h2>Faça login</h2>
+
+    ${camposHtml}
+
+    <button id="botaoEntrar" onclick="entrar()" disabled>Entrar</button>
+    <p id="mensagem"></p>
+
+    <p class="texto">Não tem uma conta?</p>
+    <a href="#" class="link">Cadastre-se agora</a>
+  </div>
+`
+
+function verificarCampos() {
+  if (email.value == "" || senha.value == "") {
+    botaoEntrar.disabled = true
+  } else {
+    botaoEntrar.disabled = false
+  }
+}
+
+function entrar() {
+  mensagem.textContent = "Login feito com sucesso!"
+}
+</script>
+
+</body>
+</html>
