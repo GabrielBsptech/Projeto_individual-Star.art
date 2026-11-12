@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>star.art | Entenda o Universo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/icon/favicon2.png">
+</head>
+
+<body>
+  <header class="navbar" id="navbar">
+    <a class="logo" href="index.html">
+      <img src="assets/imgs/logoWhite.png"alt="star.art">
+    </a>
+    <nav>
+      <a href="#sobre">Sobre mim</a>
+      <a href="login_index.html">Entrar</a>
+      <a class="botao-nav" href="cadastro.html">Cadastre-se</a>
+    </nav>
+  </header>
+  <main>
+
+    <section class="hero">
+      <div class="hero-fixo">
+
+        <div class="estrelas" style="background-image: url('assets/imgs/fundoestrela.jpg');"></div>
+
+        <img class="marte" src="assets/imgs/imagem_marte.png" alt="Planeta Marte">
+
+        <h1 class="hero-texto">Entenda o Universo, um passo de cada vez.</h1>
+      </div>
+    </section>
+
+    <!-- ========== modulos ========== -->
+    <section class="modulos">
+      <h2 class="titulo-azul aparecer">Aprenda e faça o quiz</h2>
+
+      <div class="cards">
+        <a class="card aparecer" href="modulo1.html">
+          <h3>Módulo 1</h3>
+          <img src="https://placehold.co/400x400/cccccc/555555?text=Modulo+1" alt="Imagem do Módulo 1">
+        </a>
+
+        <a class="card aparecer" href="modulo2.html">
+          <h3>Módulo 2</h3>
+          <img src="https://placehold.co/400x400/cccccc/555555?text=Modulo+2" alt="Imagem do Módulo 2">
+        </a>
+
+        <a class="card aparecer" href="modulo3.html">
+          <h3>Módulo 3</h3>
+          <img src="https://placehold.co/400x400/cccccc/555555?text=Modulo+3" alt="Imagem do Módulo 3">
+        </a>
+      </div>
+
+      <a class="botao-vermelho aparecer" href="login.html">Entre para saber mais sobre</a>
+    </section>
+
+    <!-- ========== SOBRE MIM ========== -->
+    <section class="sobre" id="sobre">
+      <h2 class="aparecer">Sobre mim</h2>
+
+      <div class="sobre-conteudo aparecer">
+        <img class="foto" src="https://placehold.co/500x500/d9d9d9/555555?text=Sua+foto" alt="Foto da autora">
+
+        <div class="sobre-texto">
+          <p>Escreva aqui um texto sobre você: quem você é, o que estuda e por que criou o star.art.</p>
+          <p>Conte também qual é o objetivo do site e o que a pessoa vai encontrar nos módulos e nos quizzes.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== RODAPÉ ========== -->
+  <footer class="rodape">
+    <div class="rodape-topo">
+      <a class="logo-grande" href="index.html">
+        <img src="public/assets/logoWhite.png" alt="star.art">
+      </a>
+
+      <div class="rodape-links">
+        <p>Entender mais sobre o espaço</p>
+        <a href="login.html">Entre ou cadastre-se</a>
+      </div>
+    </div>
+
+    <small>copyright @ star.art 2026</small>
+  </footer>
+
+  <script>
+    var hero = document.querySelector('.hero');
+    var marte = document.querySelector('.marte');
+    var texto = document.querySelector('.hero-texto');
+    var fundo = document.querySelector('.estrelas');
+
+    function animarHero() {
+      // p vai de 0 (topo) até 1 (fim do hero)
+      var total = hero.offsetHeight - window.innerHeight;
+      var p = window.scrollY / total;
+      if (p < 0) p = 0;
+      if (p > 1) p = 1;
+
+      marte.style.transform = 'translateX(' + (p * 12) + 'vw) scale(' + (1 + p * 1.2) + ') rotate(' + (p * 30) + 'deg)';
+
+      texto.style.opacity = 1 - p * 1.5;
+      texto.style.transform = 'translateY(' + (-p * 80) + 'px)';
+
+      fundo.style.transform = 'translateY(' + (p * 120) + 'px) scale(' + (1 + p * 0.15) + ')';
+    }
+
+    window.addEventListener('scroll', animarHero);
+    animarHero();
+
+    var navbar = document.getElementById('navbar');
+
+    function encolherLogo() {
+      if (window.scrollY > 50) {
+        navbar.classList.add('pequena');
+      } else {
+        navbar.classList.remove('pequena');
+      }
+    }
+
+    window.addEventListener('scroll', encolherLogo);
+    encolherLogo();
+
+    var observador = new IntersectionObserver(function (itens) {
+      itens.forEach(function (item) {
+        if (item.isIntersecting) {
+          item.target.classList.add('visivel');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.aparecer').forEach(function (el) {
+      observador.observe(el);
+    });
+  </script>
+
+</body>
+
+</html>
