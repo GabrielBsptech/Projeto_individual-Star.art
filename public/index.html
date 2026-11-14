@@ -41,23 +41,23 @@
       <h2 class="titulo-azul aparecer">Aprenda e faça o quiz</h2>
 
       <div class="cards">
-        <a class="card aparecer" href="modulo1.html">
+        <a class="card aparecer">
           <h3>Módulo 1</h3>
           <img src="https://placehold.co/400x400/cccccc/555555?text=Modulo+1" alt="Imagem do Módulo 1">
         </a>
 
-        <a class="card aparecer" href="modulo2.html">
+        <a class="card aparecer">
           <h3>Módulo 2</h3>
           <img src="https://placehold.co/400x400/cccccc/555555?text=Modulo+2" alt="Imagem do Módulo 2">
         </a>
 
-        <a class="card aparecer" href="modulo3.html">
+        <a class="card aparecer">
           <h3>Módulo 3</h3>
           <img src="https://placehold.co/400x400/cccccc/555555?text=Modulo+3" alt="Imagem do Módulo 3">
         </a>
       </div>
 
-      <a class="botao-vermelho aparecer" href="login.html">Entre para saber mais sobre</a>
+      <a class="botao-vermelho aparecer" href="login_index.html">Entre para saber mais sobre</a>
     </section>
 
     <!-- ========== SOBRE MIM ========== -->
@@ -76,11 +76,10 @@
 
   </main>
 
-  <!-- ========== RODAPÉ ========== -->
   <footer class="rodape">
     <div class="rodape-topo">
       <a class="logo-grande" href="index.html">
-        <img src="public/assets/logoWhite.png" alt="star.art">
+        <img src="assets/imgs/logoWhite.png" alt="star.art">
       </a>
 
       <div class="rodape-links">
@@ -99,7 +98,6 @@
     var fundo = document.querySelector('.estrelas');
 
     function animarHero() {
-      // p vai de 0 (topo) até 1 (fim do hero)
       var total = hero.offsetHeight - window.innerHeight;
       var p = window.scrollY / total;
       if (p < 0) p = 0;

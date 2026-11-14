@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    // ---- Para fins de teste ----
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/icon/favicon2.png">
+  <link rel="stylesheet" href="css/dashboards.css">
+</head>
+
+<body>
+
+    <header class="navbar">
+        <div class="avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
+        <span class="greeting" id="greeting">Olá,</span>
+        <span class="nav-spacer"></span>
+        <a class="nav-link" href="aulas.html">Ver aulas</a>
+        <a class="btn-exit" href="index.html">Sair</a>
+    </header>
+
+    <main>
+        <section class="stats" aria-label="Resumo">
+            <article class="stat">
+                <span class="info" title="Módulos com ao menos uma tentativa"></span>
+                <h2><img class="kpi-icon" src="assets/imgs/icon-conteudos.png" alt="">Conteúdos estudados</h2>
+                <div class="value" id="statStudied">–</div>
+            </article>
+
+            <article class="stat">
+                <span class="info" title="Total de tentativas em todos os módulos"></span>
+                <h2><img class="kpi-icon" src="assets/imgs/icon-avaliacoes.png" alt="">Avaliações realizadas</h2>
+                <div class="value" id="statAttempts">–</div>
+            </article>
+
+            <article class="stat">
+                <span class="info" title="Média dos módulos avaliados"></span>
+                <h2><img class="kpi-icon" src="assets/imgs/icon-acertos.png" alt="">Média de acertos</h2>
+                <div class="value" id="statAverage">–</div>
+            </article>
+        </section>
+
+        <section class="panels">
+            <article class="card chart-card">
+                <h3>Média de aproveitamento por módulo</h3>
+                <p class="sub">Média das tentativas de cada módulo</p>
+                <div class="chart-wrap">
+                    <canvas id="chartModules" role="img"
+                        aria-label="Gráfico de barras com a média de aproveitamento por módulo"></canvas>
+                </div>
+                <p class="chart-note">Galáxias: sem avaliação (não conta como zero)</p>
+            </article>
+
+            <article class="card modules">
+                <h4>Estado dos módulos</h4>
+                <div id="modulesList"></div>
+                <button class="btn-start" type="button" id="btnStart"></button>
+            </article>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="script.js"></script>
+</body>
+<script>
+    // ---- Usuário logado ----
+const nomeUsuario = sessionStorage.NOME_USUARIO;
+
+if (!nomeUsuario) {
+  window.location.href = "login_index.html";
+}
+
+const aluno = { nome: nomeUsuario || "Visitante" };
+
+const modulos = [
+  { id: "01", nome: "Sistema Solar",  tentativas: 3, media: 85   },
+  { id: "02", nome: "Exoplanetas",    tentativas: 2, media: 70   },
+  { id: "03", nome: "Buracos Negros", tentativas: 2, media: 60   },
+  { id: "04", nome: "Galáxias",       tentativas: 0, media: null }
+];
+
+// ---- Estatísticas derivadas ----
+const iniciados  = modulos.filter(m => m.tentativas > 0);
+const totalTent  = modulos.reduce((s, m) => s + m.tentativas, 0);
+const mediaGeral = Math.round(iniciados.reduce((s, m) => s + m.media, 0) / iniciados.length);
+
+document.getElementById("greeting").textContent = `Olá, ${aluno.nome}`;
+document.getElementById("statStudied").textContent  = `${iniciados.length}/${modulos.length}`;
+document.getElementById("statAttempts").textContent = totalTent;
+document.getElementById("statAverage").textContent  = `${mediaGeral}%`;
+
+// ---- Estado dos módulos ----
+const lista = document.getElementById("modulesList");
+modulos.forEach(m => {
+  const iniciado = m.tentativas > 0;
+  const el = document.createElement("div");
+  el.className = "module";
+  el.innerHTML = `
+    <div class="row">
+      <span>${m.id} ${m.nome}</span>
+      <span>${iniciado ? `${m.tentativas} tentativas` : "Não iniciado"}</span>
+    </div>
+    ${iniciado ? `<div class="bar"><i style="width:${m.media}%"></i></div>` : ""}`;
+  lista.appendChild(el);
+});
+
+const proximo = modulos.find(m => m.tentativas === 0);
+const btn = document.getElementById("btnStart");
+if (proximo) {
+  btn.textContent = `Começar ${proximo.nome} ↗`;
+  btn.addEventListener("click", () => console.log("Abrir módulo:", proximo.nome));
+} else {
+  btn.hidden = true;
+}
+
+// ---- Gráfico (Chart.js) ----
+Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+Chart.defaults.color = "#b5b5b5";
+
+new Chart(document.getElementById("chartModules"), {
+  type: "bar",
+  data: {
+    labels: modulos.map(m => m.nome),
+    datasets: [{
+      label: "Média de aproveitamento",
+      data: modulos.map(m => m.media), // null = sem barra
+      backgroundColor: "#3b82f6",
+      borderRadius: 3,
+      barPercentage: 0.18,
+      categoryPercentage: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        min: 0,
+        max: 100,
+        ticks: { stepSize: 25, callback: v => v + "%", font: { size: 10, weight: "600" } },
+        grid: { color: "#2d2d2d" },
+        border: { display: false }
+      },
+      x: {
+        ticks: { font: { size: 10, weight: "600" } },
+        grid: { display: false },
+        border: { color: "#2d2d2d" }
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: { label: ctx => ctx.parsed.y == null ? "Sem avaliação" : `${ctx.parsed.y}%` }
+      }
+    }
+  }
+});
+</script>
+</html>
