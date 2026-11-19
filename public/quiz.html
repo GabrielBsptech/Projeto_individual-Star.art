@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quiz</title>
+  <link rel="stylesheet" href="css/quiz.css">
+</head>
+
+<body>
+
+  <main class="quiz">
+
+    <!-- TELA 1: escolher o quiz -->
+    <section id="telaMenu">
+      <h1>Escolha um quiz</h1>
+      <p class="instrucao">Cada quiz tem 5 perguntas.</p>
+      <div id="listaQuizzes"></div>
+    </section>
+
+    <!-- TELA 2: perguntas -->
+    <section id="telaPergunta" hidden>
+      <div class="topo">
+        <span id="tituloQuiz"></span>
+        <span id="contador"></span>
+      </div>
+
+      <h1 id="pergunta"></h1>
+      <p class="instrucao">Selecione a alternativa correta.</p>
+
+      <div id="alternativas"></div>
+
+      <div id="feedback" class="feedback" hidden>
+        <strong id="feedbackTitulo"></strong>
+        <p id="feedbackTexto"></p>
+      </div>
+
+      <button id="botaoConfirmar" class="botao" disabled>Confirmar resposta</button>
+    </section>
+
+    <!-- TELA 3: resultado -->
+    <section id="telaResultado" hidden>
+      <h1>Quiz finalizado!</h1>
+      <p class="instrucao" id="textoResultado"></p>
+      <p class="nota" id="notaResultado"></p>
+
+      <button id="botaoRepetir" class="botao">Tentar de novo</button>
+      <button id="botaoMenu" class="botao secundario">Voltar aos quizzes</button>
+    </section>
+
+  </main>
+
+  <script src="js/quiz.js"></script>
+</body>
+
+</html>

@@ -30,14 +30,16 @@
         <img src="assets/imgs/iconback.png" alt="Voltar para a página inicial">
       </a>
 
-      <h1>Faça login</h1>
-
-      <form action="#" method="post">
+      <form id="formLogin" action="#" method="post" novalidate>
         <label for="email">Email<span>*</span></label>
-        <input type="email" id="email" name="email" placeholder="seuemail@.com" required>
+        <input type="email" id="email" name="email" placeholder="seuemail@.com">
+        <small class="erro" id="erroEmail"></small>
 
         <label for="senha">Senha<span>*</span></label>
-        <input type="password" id="senha" name="senha" placeholder="suasenha1234" required>
+        <input type="password" id="senha" name="senha" placeholder="suasenha1234">
+        <small class="erro" id="erroSenha"></small>
+
+        <small class="erro erro-geral" id="erroGeral"></small>
 
         <button type="submit">Entrar</button>
       </form>

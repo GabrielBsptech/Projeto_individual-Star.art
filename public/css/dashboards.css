@@ -13,7 +13,9 @@
   --blue: #3b82f6;
   --red: #8b1f1f;
 }
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
   background-color: var(--bg);
   background-image: var(--fundo-estrelas);
@@ -23,146 +25,192 @@ body {
   background-attachment: fixed;
   color: var(--text);
   font-family: "Inter", system-ui, sans-serif;
-  min-height: 100vh;
-  padding: 12px;
+  height: 100vh;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Navbar */
+/* ---------- BARRA DE TOPO ---------- */
 .navbar {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 21px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 6px 10px;
-}
-.voltar {
-  display: grid;
-  place-items: center;
-  width: 28px; height: 28px;
+  border-radius: 27px;
+  padding: 9px 15px;
   flex-shrink: 0;
 }
-.voltar img { width: 20px; height: 20px; object-fit: contain; }
-.voltar:hover { opacity: 0.7; }
+
 .avatar {
-  width: 32px; height: 32px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #8d8d8d;
   color: #1c1c1c;
-  display: grid; place-items: center;
-  font-size: 15px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
   flex-shrink: 0;
 }
-.greeting { font-size: 12px; font-weight: 600; }
+
+.greeting { font-size: 18px; font-weight: 600; }
 .nav-spacer { flex: 1; }
-.nav-link { font-size: 12px; color: var(--muted); text-decoration: none; }
+.nav-link { font-size: 18px; color: var(--muted); text-decoration: none; }
 .nav-link:hover { color: var(--text); }
+
 .btn-exit {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 30px;
-  padding: 0 14px;
+  height: 45px;
+  padding: 0 24px;
   background: var(--red);
   color: #fff;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 16px;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
 }
 .btn-exit:hover { filter: brightness(1.2); }
 
-/* Layout */
+/* ---------- LAYOUT ---------- */
 main {
-  max-width: 1100px;
-  margin: 56px auto 0;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  max-width: 1500px;
+  margin: 30px auto 0;
   padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
 }
-.stats { display: flex; flex-wrap: wrap; gap: 24px; }
+
+/* ---------- CARDS DE NÚMEROS ---------- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  flex-shrink: 0;
+}
+
 .stat {
   background: var(--card);
   color: var(--card-text);
-  border-radius: 8px;
-  width: 202px;
-  height: 143px;
-  padding: 12px 12px 8px;
+  border-radius: 12px;
+  height: 190px;
+  padding: 18px 18px 12px;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
+
 .stat h2 {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 500;
-  line-height: 1;
+  line-height: 1.1;
   color: var(--card-muted);
   letter-spacing: -0.02em;
 }
+
 .kpi-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-  vertical-align: -1px;
+  width: 24px;
+  height: 24px;
+  margin-right: 9px;
+  vertical-align: -2px;
   object-fit: contain;
 }
+
 .stat .value {
   font-family: "Syne", sans-serif;
   font-weight: 700;
-  font-size: 44px;
+  font-size: 60px;
   line-height: 1;
   text-align: right;
   color: #000;
 }
+
 .info {
-  position: absolute; top: 8px; right: 8px;
-  width: 9px; height: 9px; border-radius: 50%;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
   background: #777;
   cursor: help;
 }
 
+/* ---------- GRÁFICO + MÓDULOS ---------- */
 .panels {
+  flex: 1;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 612px) minmax(0, 350px);
-  gap: 26px;
-  margin-top: 72px;
-  align-items: end;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }
+
 .card {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
-.chart-card { padding: 16px 18px 14px; }
-.chart-card h3 { font-size: 16px; font-weight: 600; }
-.chart-card .sub { font-size: 14px; color: #b5b5b5; margin-top: 4px; }
-.chart-wrap { position: relative; height: 230px; margin-top: 14px; }
-.chart-note { font-size: 14px; color: var(--muted); margin-top: 10px; }
+
+.chart-card {
+  grid-column: span 2;
+  padding: 24px 27px 18px;
+}
+
+.chart-card h3 { font-size: 24px; font-weight: 600; }
+.chart-card .sub { font-size: 18px; color: #b5b5b5; margin-top: 4px; }
+
+.chart-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 120px;
+  margin-top: 18px;
+}
+
+.chart-note { font-size: 16px; color: var(--muted); margin-top: 12px; }
 
 /* Estado dos módulos */
-.modules { padding: 10px 10px 12px; font-size: 10px; }
-.modules h4 { font-size: 10px; font-weight: 500; margin-bottom: 8px; }
-.module { margin-bottom: 7px; }
-.module .row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+.modules { padding: 24px; font-size: 16px; }
+.modules h4 { font-size: 20px; font-weight: 600; }
+
+#modulesList {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 12px 0;
+}
+
+.module .row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
 .module .row span:last-child { color: #c9c9c9; }
-.bar { height: 4px; border-radius: 2px; background: #2c2c2c; overflow: hidden; }
-.bar i { display: block; height: 100%; background: var(--blue); border-radius: 2px; }
+
+.bar { height: 8px; border-radius: 4px; background: #2c2c2c; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--blue); border-radius: 4px; }
+
 .btn-start {
   width: 100%;
-  margin-top: 10px;
-  padding: 6px;
+  padding: 12px;
   background: transparent;
   color: var(--text);
   border: 1px solid #3a3a3a;
-  border-radius: 6px;
-  font: 500 10px "Inter", sans-serif;
+  border-radius: 9px;
+  font: 500 16px "Inter", sans-serif;
   cursor: pointer;
 }
 .btn-start:hover { background: #2a2a2a; }
-
-@media (max-width: 900px) {
-  main { padding: 0 8px; margin-top: 32px; }
-  .panels { grid-template-columns: 1fr; margin-top: 32px; }
-  .stat { width: calc(50% - 12px); min-width: 160px; }
-}

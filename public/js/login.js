@@ -1,17 +1,64 @@
-const formLogin = document.querySelector("form");
+const formLogin = document.getElementById("formLogin");
 const botaoLogin = formLogin.querySelector("button[type='submit']");
 const loading = document.getElementById("loading");
 
+const inputEmail = document.getElementById("email");
+const inputSenha = document.getElementById("senha");
+
+// mostra (ou limpa, se a mensagem for vazia) a frase de erro
+function mostrarErro(input, idErro, mensagem) {
+  const erro = document.getElementById(idErro);
+
+  if (mensagem) {
+    erro.textContent = mensagem;
+    erro.classList.add("mostrar");
+    if (input) input.classList.add("invalido");
+  } else {
+    erro.textContent = "";
+    erro.classList.remove("mostrar");
+    if (input) input.classList.remove("invalido");
+  }
+}
+
+function limparErros() {
+  mostrarErro(inputEmail, "erroEmail", "");
+  mostrarErro(inputSenha, "erroSenha", "");
+  mostrarErro(null, "erroGeral", "");
+}
+
+// some com o erro assim que a pessoa volta a digitar
+inputEmail.addEventListener("input", function () {
+  mostrarErro(inputEmail, "erroEmail", "");
+  mostrarErro(null, "erroGeral", "");
+});
+
+inputSenha.addEventListener("input", function () {
+  mostrarErro(inputSenha, "erroSenha", "");
+  mostrarErro(null, "erroGeral", "");
+});
+
 formLogin.addEventListener("submit", async (e) => {
   e.preventDefault();
+  limparErros();
 
-  const email = document.getElementById("email").value.trim();
-  const senha = document.getElementById("senha").value;
+  const email = inputEmail.value.trim();
+  const senha = inputSenha.value;
+  let valido = true;
 
-  if (!email || !senha) {
-    alert("Preencha todos os campos.");
-    return;
+  if (!email) {
+    mostrarErro(inputEmail, "erroEmail", "Digite seu email.");
+    valido = false;
+  } else if (!email.includes("@")) {
+    mostrarErro(inputEmail, "erroEmail", "Digite um email válido.");
+    valido = false;
   }
+
+  if (!senha) {
+    mostrarErro(inputSenha, "erroSenha", "Digite sua senha.");
+    valido = false;
+  }
+
+  if (!valido) return;
 
   if (loading) loading.hidden = false;
   botaoLogin.disabled = true;
@@ -27,7 +74,7 @@ formLogin.addEventListener("submit", async (e) => {
     });
 
     if (resposta.status === 403) {
-      alert("Email e/ou senha inválidos");
+      mostrarErro(inputSenha, "erroSenha", "Email e/ou senha inválidos.");
       return;
     }
 
@@ -41,10 +88,10 @@ formLogin.addEventListener("submit", async (e) => {
     sessionStorage.NOME_USUARIO = dados.nome;
     sessionStorage.EMAIL_USUARIO = dados.email;
 
-    window.location.href = "dashboard.html";
+    window.location.href = "homepage.html";
   } catch (erro) {
     console.error("Erro ao entrar:", erro);
-    alert("Erro ao entrar: " + erro.message);
+    mostrarErro(null, "erroGeral", "Não foi possível entrar. Tente novamente.");
   } finally {
     if (loading) loading.hidden = true;
     botaoLogin.disabled = false;

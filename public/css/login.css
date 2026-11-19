@@ -162,20 +162,6 @@ button:hover {
 }
 
 /* ========== CELULAR ========== */
-@media (max-width: 800px) {
-  .lado-foto {
-    display: none;
-  }
-
-  .lado-login {
-    width: 100%;
-    gap: 40px;
-  }
-
-  .caixa {
-    padding: 50px 24px 30px;
-  }
-}
 
 /* ========== LOADING ========== */
 .loading {

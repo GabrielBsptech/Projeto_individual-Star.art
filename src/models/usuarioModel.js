@@ -11,7 +11,7 @@ function autenticar(email, senha) {
 function cadastrar(nome, email, senha) {
     var instrucaoSql = `
         INSERT INTO usuarios (nome, email, senha_hash)
-        VALUES ('${nome}', '${email}', SHA2('${senha}', 256));
+        VALUES ('${nome}', '${email}',SHA2('${senha}', 256));
     `;
     return database.executar(instrucaoSql);
 }
