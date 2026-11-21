@@ -10,16 +10,6 @@ Mais do que um site para decorar planetas, o projeto propõe uma experiência le
 
 ## Por que este projeto existe
 
-Aprender costuma ser tratado como obrigação. O Star.Art tenta inverter isso: transforma o estudo da astronomia em uma jornada visual, com quizzes, feedback imediato e uma dashboard que mostra o quanto você já avançou.
-
-A mensagem por trás do projeto é direta:
-
-> Conhecimento não é só conteúdo para prova. É o que expande a forma como você enxerga o mundo — e o que te dá coragem para ir além dele.
-
-Cada quiz respondido é uma pequena prova disso: quanto mais você sabe, mais longe consegue enxergar.
-
----
-
 ## O que você encontra no site
 
 - **Landing page institucional** com identidade visual espacial, animações de rolagem e apresentação da proposta.
@@ -61,65 +51,10 @@ Cada quiz respondido é uma pequena prova disso: quanto mais você sabe, mais lo
 
 **Back-end**
 - Node.js com Express
-- API REST em camadas (`routes` → `controllers` → `models`)
-- MySQL para persistência dos dados
-- `dotenv` para configuração de ambiente
+- API 
+- MySQL 
 
----
 
-## Estrutura do projeto
-
-```
-app.js                  Inicialização do servidor Express
-public/                 Front-end (HTML, CSS, JS e imagens)
-src/
-  routes/               Endpoints da API
-  controllers/          Validação e respostas HTTP
-  models/               Consultas SQL
-  database/             Conexão MySQL e script do banco
-```
-
----
-
-## Como rodar localmente
-
-1. Clone o repositório e instale as dependências:
-   ```bash
-   npm install
-   ```
-
-2. Crie o banco de dados executando o script:
-   ```
-   src/database/script-star-art.sql
-   ```
-
-3. Configure as credenciais no arquivo `.env.dev`:
-   ```
-   DB_HOST=localhost
-   DB_DATABASE=star_art
-   DB_USER=seu_usuario
-   DB_PASSWORD=sua_senha
-   DB_PORT=3306
-   APP_PORT=3333
-   APP_HOST=localhost
-   ```
-
-4. Inicie o servidor:
-   ```bash
-   npm start
-   ```
-
-5. Acesse no navegador:
-   ```
-   http://localhost:3333
-   ```
-
-Para acessar de outro dispositivo na mesma rede, use o IP da máquina que está rodando o servidor:
-```
-http://SEU_IP:3333
-```
-
----
 
 ## O que vem depois
 
@@ -135,6 +70,6 @@ O Star.Art é um projeto em evolução. Algumas ideias para o futuro:
 
 ## Uma última palavra
 
-O Star.Art não quer só ensinar astronomia. Quer lembrar que aprender é uma forma de entretenimento — e que cada coisa nova que você entende abre uma porta para um mundo que antes parecia distante.
+O meu projeto Star.Art não quer só ensinar astronomia. Quer lembrar que aprender é uma forma de entretenimento — e que cada coisa nova que você entende abre uma porta para um mundo que antes parecia distante.
 
 **O Universo é grande. O conhecimento é o que nos permite chegar mais longe.**
