@@ -20,3 +20,13 @@ CREATE TABLE aviso (
     fk_usuario INT,
     FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
 );
+
+CREATE TABLE quiz_tentativa (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    fk_usuario INT NOT NULL,
+    quiz VARCHAR(100) NOT NULL,
+    acertos INT NOT NULL,
+    total INT NOT NULL,
+    dt_tentativa TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fk_usuario) REFERENCES usuarios(id)
+);

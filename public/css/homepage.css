@@ -5,7 +5,7 @@
 }
 
 :root {
-    --red: #8b2a2a;
+    --red: #8b1f1f;
 }
 
 body {
@@ -16,48 +16,13 @@ body {
 }
 
 /* ---------- BARRA DE TOPO ---------- */
-.barra {
-    background: #1a1a1a;
-    color: #fff;
-    margin: 15px 24px 0 24px;
-    padding: 12px 18px;
-    border-radius: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.usuario {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.foto-perfil {
-    width: 57px;
-    height: 57px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: #888;
-}
-
-.menu {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-    padding-right: 6px;
-}
-
-.menu a {
-    color: #999;
-    font-size: 17px;
-    text-decoration: none;
-}
-
-.menu a:hover {
-    color: #fff;
+/* Visual padrão em css/navbar.css; aqui só deixamos fixa no topo. */
+.navbar {
+    position: fixed;
+    top: 15px;
+    left: 24px;
+    right: 24px;
+    z-index: 100;
 }
 
 /* ---------- CONTEÚDO ---------- */
@@ -112,20 +77,6 @@ body {
     aspect-ratio: 552 / 593;
 }
 
-.btn-exit {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-    padding: 0 14px;
-    background: var(--red);
-    color: #fff;
-    border-radius: 999px;
-    font-size: 11px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
-}
 .erro {
   display: none;
   margin-top: -14px;
@@ -148,35 +99,30 @@ input.invalido {
 }
 
 
-.button-31 {
-  background-color: #222;
-  border-radius: 4px;
-  border-style: none;
-  box-sizing: border-box;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: "Farfetch Basis","Helvetica Neue",Arial,sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1.5;
-  margin: 0;
-  max-width: none;
-  min-height: 44px;
-  min-width: 10px;
-  outline: none;
-  overflow: hidden;
-  padding: 9px 20px 8px;
-  position: relative;
-  text-align: center;
-  text-transform: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  width: 100%;
+/* ---------- BOTÃO DO QUIZ ---------- */
+.cta {
+    display: flex;
+    justify-content: center;
+    margin: 10px 0 80px 0;
 }
 
-.button-31:hover,
-.button-31:focus {
-  opacity: .75;
+.btn-quiz {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    padding: 14px 48px;
+    background: #1c1c1c;
+    color: #fff;
+    border-radius: 999px;
+    font-family: "Inter", system-ui, sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.btn-quiz:hover,
+.btn-quiz:focus {
+    filter: brightness(1.25);
 }

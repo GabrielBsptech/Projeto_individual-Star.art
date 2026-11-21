@@ -7,6 +7,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/icon/favicon2.png">
+    <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/homepage.css">
     <title>Página inicial</title>
 
@@ -14,17 +18,16 @@
 
 <body>
 
-    <header class="barra">
-        <div class="usuario">
-            <img id="fotoPerfil" class="foto-perfil" src="" alt="Foto de perfil">
-            <span id="saudacao">Olá</span>
-        </div>
-        <div class="menu">
-            <a id="linkDashboard" href="dashboard.html">Ver dashboard</a>
-            <a class="btn-exit" href="index.html">Sair</a>
-        </div>
+    <header class="navbar">
+        <div class="avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
+        <span class="greeting" id="greeting">Olá</span>
+        <span class="nav-spacer"></span>
+        <a class="nav-link" id="linkDashboard" href="dashboard.html">Ver dashboard</a>
+        <a class="btn-exit" href="index.html">Sair</a>
     </header>
-    
+
+
+
 
     <main class="conteudo">
 
@@ -103,7 +106,7 @@
             </div>
 
             <div class="imagem">
-                 <img src="linkdafoto">
+                <img src="linkdafoto">
             </div>
         </section>
 
@@ -113,7 +116,7 @@
 
         <section class="secao">
             <div class="imagem">
-                 <img src="linkdafoto">
+                <img src="linkdafoto">
             </div>
 
             <div class="texto">
@@ -186,13 +189,16 @@
             </div>
 
             <div class="imagem">
-               <img src="linkdafoto">
+                <img src="linkdafoto">
             </div>
         </section>
 
+        <div class="cta">
+            <a class="btn-quiz" href="quiz.html">Fazer quiz</a>
+        </div>
+
     </main>
 
-<a class="button-31" href="quiz.html">Fazer quiz</a>
 </body>
 <script src="js/homepage.js"></script>
 

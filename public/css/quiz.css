@@ -6,17 +6,76 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: #000;
+  background: #000 url("../assets/imgs/fundoestrela.jpg") center / cover fixed no-repeat;
   color: #fff;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---------- FUNDO COM PLANETAS ---------- */
+.quiz-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.planeta {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.55;
+  animation: flutuar 14s ease-in-out infinite;
+}
+
+/* Marte usando a imagem do projeto */
+.p1 {
+  width: 340px;
+  height: 340px;
+  left: -130px;
+  bottom: -110px;
+  background: url("../assets/imgs/imagem_marte.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 50px rgba(255, 120, 60, 0.25));
+}
+
+/* planeta azul */
+.p2 {
+  width: 230px;
+  height: 230px;
+  top: 8%;
+  right: -80px;
+  background: radial-gradient(circle at 32% 30%, #8fc3ff, #2a5d9c 55%, #0a1a2e 100%);
+  box-shadow: inset -30px -20px 60px rgba(0, 0, 0, 0.65), 0 0 70px rgba(80, 150, 255, 0.25);
+  animation-duration: 18s;
+  animation-delay: -5s;
+}
+
+/* planeta rochoso */
+.p3 {
+  width: 130px;
+  height: 130px;
+  right: 16%;
+  bottom: 9%;
+  background: radial-gradient(circle at 35% 30%, #e0c09a, #7a5230 60%, #2a1a10 100%);
+  box-shadow: inset -16px -12px 32px rgba(0, 0, 0, 0.65);
+  animation-duration: 22s;
+  animation-delay: -9s;
+}
+
+@keyframes flutuar {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
 }
 
 /* caixa principal */
 .quiz {
+  position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 700px;
   background: #0a0a0a;
@@ -27,6 +86,48 @@ body {
 
 [hidden] {
   display: none !important;
+}
+
+/* navegação para homepage / dashboard */
+.quiz-nav {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.quiz-nav a {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #1c1c1c;
+  border: 1px solid #333;
+  border-radius: 999px;
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.quiz-nav a:hover {
+  color: #fff;
+  border-color: #666;
+  background: #262626;
+}
+
+/* espaço reservado para a imagem do ícone */
+.quiz-nav-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.quiz-nav-icon[src^="data:"] {
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 h1 {

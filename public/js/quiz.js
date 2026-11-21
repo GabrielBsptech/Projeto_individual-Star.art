@@ -379,6 +379,37 @@ botaoConfirmar.addEventListener("click", function () {
 // =====================================================
 // 10. RESULTADO FINAL
 // =====================================================
+function salvarResultado(quiz, acertos, total) {
+  var idUsuario = sessionStorage.ID_USUARIO;
+
+  if (!idUsuario) {
+    console.warn("Usuário não está logado. O resultado não foi salvo.");
+    return;
+  }
+
+  fetch("/quiz/salvar", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      idUsuario: idUsuario,
+      quiz: quiz.nome,
+      acertos: acertos,
+      total: total
+    })
+  })
+    .then(function (resposta) {
+      if (!resposta.ok) {
+        return resposta.text().then(function (texto) {
+          throw new Error(texto);
+        });
+      }
+      console.log("Resultado do quiz salvo com sucesso.");
+    })
+    .catch(function (erro) {
+      console.error("Erro ao salvar o resultado do quiz:", erro);
+    });
+}
+
 function mostrarResultado() {
   var quiz = quizzes[quizAtual];
   var total = quiz.perguntas.length;
@@ -386,19 +417,7 @@ function mostrarResultado() {
   textoResultado.textContent = "Quiz: " + quiz.nome;
   notaResultado.textContent = acertos + " / " + total;
 
-  // AQUI você pode enviar o resultado para o banco de dados.
-  // Exemplo (quando tiver a rota no servidor):
-  //
-  // fetch("/quiz/salvar", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify({
-  //     idUsuario: sessionStorage.ID_USUARIO,
-  //     quiz: quiz.nome,
-  //     acertos: acertos,
-  //     total: total
-  //   })
-  // });
+  salvarResultado(quiz, acertos, total);
 
   mostrarTela(telaResultado);
 }
