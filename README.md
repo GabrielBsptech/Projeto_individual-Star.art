@@ -8,11 +8,6 @@ Mais do que um site para decorar planetas, o projeto propõe uma experiência le
 
 ---
 
-## Por que este projeto existe
-Por volta dos meus 10 anos meu tio me deixou assintindo Cosmos apresentado por Carl Segan um episodio que ele explica um pouco sobre a 4°Dimensão, apesar de ter 10 anos
-e não entender nada gostei muito sobre, foi apartir disso que me interessou a buscar mais conhecimento nessa area, Series que recomendo é The Big Bang Theory, Cosmos, Star Trek, Ruptura etc.
-
-
 ## O que você encontra no site
 
 - **Landing page institucional** com identidade visual espacial, animações de rolagem e apresentação da proposta.
