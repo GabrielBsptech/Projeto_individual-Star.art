@@ -1,105 +1,140 @@
-<img src="https://user-images.githubusercontent.com/46379117/192358781-9ca879e4-e55e-4d0d-b876-f9a4a2ed9ae8.png" width="600px">
+# Star.Art
 
-_Web Data Visualization = Visualização de Dados na Web_
+> Entenda o Universo, um passo de cada vez.
 
-_Implementação de Referência para o seu Projeto de Primeiro Semestre_
+O **Star.Art** é uma plataforma web de aprendizado sobre astronomia que mistura conteúdo, desafios e visualização de progresso. A ideia nasceu de uma vontade simples: **entreter enquanto ensina** — e, principalmente, mostrar que **o conhecimento abre o mundo** (e o Universo) para quem se permite explorar.
 
-<hr>
+Mais do que um site para decorar planetas, o projeto propõe uma experiência leve e curiosa: você lê, testa o que aprendeu e acompanha a sua evolução como quem observa uma galáxia se formando.
 
-# Como usar
+---
 
-1. Clone este repositório em sua máquina.
+## Por que este projeto existe
 
+Aprender costuma ser tratado como obrigação. O Star.Art tenta inverter isso: transforma o estudo da astronomia em uma jornada visual, com quizzes, feedback imediato e uma dashboard que mostra o quanto você já avançou.
 
-1. Crie, no Banco de Dados, as tabelas necessárias para o funcionamento deste projeto.
-- Siga as instruções no arquivo **/src/database/script-tabelas.sql**
+A mensagem por trás do projeto é direta:
 
+> Conhecimento não é só conteúdo para prova. É o que expande a forma como você enxerga o mundo — e o que te dá coragem para ir além dele.
 
-3. Acesse o arquivo **app.js** e parametrize o ambiente.
-- Se você estiver utilizando o Ambiente de Produção (remoto), comente a linha 2 e deixe habilitada a linha 1 onde está o valor **var ambiente_processo = 'producao';**
-- Se você estiver utilizando o Ambiente de Desenvolvimento (local), comente a linha 1 e deixe habilitada a linha 2 onde está o valor **var ambiente_processo = 'desenvolvimento';**
+Cada quiz respondido é uma pequena prova disso: quanto mais você sabe, mais longe consegue enxergar.
 
-4. Adicione as credenciais de Banco de Dados no arquivo **.env** ou em **.env.dev**, seguindo as instruções neste.
+---
 
-5. Acesse este repositório no seu terminal (GitBash ou VSCode) e execute os comandos abaixo:
+## O que você encontra no site
+
+- **Landing page institucional** com identidade visual espacial, animações de rolagem e apresentação da proposta.
+- **Cadastro e login** de usuários, com senhas protegidas por hash.
+- **Homepage do aluno**, com saudação personalizada e navegação para o quiz e a dashboard.
+- **Quiz de astronomia** com quatro temas:
+  - Sistema Solar
+  - Exoplanetas
+  - Buracos Negros
+  - Galáxias
+- **Feedback educativo** a cada pergunta, explicando o porquê da resposta.
+- **Dashboard de progresso** com:
+  - Assuntos respondidos
+  - Avaliações realizadas
+  - Média de acertos
+  - Gráfico de aproveitamento por tema
+- **Visual holográfico e planetas animados**, reforçando a atmosfera de descoberta.
+
+---
+
+## Como a experiência funciona
+
+1. A pessoa se cadastra e faz login.
+2. Na homepage, escolhe fazer um quiz.
+3. Responde às perguntas e recebe feedback imediato com explicações.
+4. Ao final, a tentativa é salva no banco de dados.
+5. A dashboard transforma essas tentativas em estatísticas e gráficos, mostrando a evolução ao longo do tempo.
+
+É um ciclo simples — **aprender, testar, visualizar** — pensado para manter a curiosidade viva.
+
+---
+
+## Tecnologias
+
+**Front-end**
+- HTML5, CSS3 e JavaScript
+- Chart.js para o gráfico da dashboard
+- Animações com CSS e JavaScript
+
+**Back-end**
+- Node.js com Express
+- API REST em camadas (`routes` → `controllers` → `models`)
+- MySQL para persistência dos dados
+- `dotenv` para configuração de ambiente
+
+---
+
+## Estrutura do projeto
 
 ```
-npm i
-``` 
-_O comando acima irá instalar as bibliotecas necessárias para o funcionamento do projeto. As bibliotecas a serem instaladas estão listadas no arquivo **package.json** então é muito importante que este não seja alterado. Será criada uma nova pasta/diretório chamado **node_modules** quando o comando for finalizado, que é onde as bibliotecas estão localizadas. Não altere a pasta/diretório._
-
+app.js                  Inicialização do servidor Express
+public/                 Front-end (HTML, CSS, JS e imagens)
+src/
+  routes/               Endpoints da API
+  controllers/          Validação e respostas HTTP
+  models/               Consultas SQL
+  database/             Conexão MySQL e script do banco
 ```
-npm start
-``` 
 
-_O comando acima irá iniciar seu projeto e efetuar os comandos de acordo com a sua parametrização feita nos passos anteriores._
+---
 
-6. Para "ver" seu projeto funcionando, acesse em seu navegador o caminho **informado no terminal**.
+## Como rodar localmente
 
-7. Caso queira parar a execução, tecle **CTRL+C** no terminal em que o projeto está rodando.
+1. Clone o repositório e instale as dependências:
+   ```bash
+   npm install
+   ```
 
-## Adicionar novo recurso ao projeto
+2. Crie o banco de dados executando o script:
+   ```
+   src/database/script-star-art.sql
+   ```
 
-**"Recurso? O que é?"** Enquanto no Banco de Dados chamamos as tabelas de "entidades", quando tratamos de desenvolvimento WEB usamos a palavra "recurso" para se referir a algo que podemos criar, ler, atualizar ou deletar [1]. Estas ações são conhecidas como CRUD: Create, Read, Update e Delete. Para acessar cada ação, usamos os métodos HTTP: POST, GET, PUT e DELETE [2]. (Há outros verbos, porém com estes já conseguimos efetuar CRUDs). 
+3. Configure as credenciais no arquivo `.env.dev`:
+   ```
+   DB_HOST=localhost
+   DB_DATABASE=star_art
+   DB_USER=seu_usuario
+   DB_PASSWORD=sua_senha
+   DB_PORT=3306
+   APP_PORT=3333
+   APP_HOST=localhost
+   ```
 
-**Tabela para ajudar a fazer a associação**
+4. Inicie o servidor:
+   ```bash
+   npm start
+   ```
 
-<table>
-  <tr>
-    <th>C.R.U.D</th>
-    <th>Ação</th>
-    <th>Tradução</th>
-    <th>Verbo HTTP *</th>
-    <th>Comando BD</th>
-  </tr>
-  <tr>
-    <td>C</td>
-    <td>Create</td>
-    <td>Criar</td>
-    <td>POST</td>
-    <td>INSERT</td>
-  </tr>
-  <tr>
-    <td>R</td>
-    <td>Read</td>
-    <td>Ler</td>
-    <td>GET</td>
-    <td>SELECT</td>
-  </tr>
-  <tr>
-    <td>U</td>
-    <td>Update</td>
-    <td>Atualizar</td>
-    <td>PUT</td>
-    <td>UPDATE</td>
-  </tr>
-  <tr>
-    <td>D</td>
-    <td>Delete</td>
-    <td>Deletar</td>
-    <td>DELETE</td>
-    <td>DELETE</td>
-  </tr>
-</table>
+5. Acesse no navegador:
+   ```
+   http://localhost:3333
+   ```
 
-_* Você verá o verbo HTTP sendo apontado nos arquivos em /routes_
+Para acessar de outro dispositivo na mesma rede, use o IP da máquina que está rodando o servidor:
+```
+http://SEU_IP:3333
+```
 
-**"E no meu projeto, o que seria um recurso?"** Em web-data-viz manipulamos os recursos **usuário**, **aviso** e **medida**. Podemos conferir isso vendo para quais entidades foram criados os caminhos de inserção e captura de dados, que envolve os diretórios **routes**, **controllers** e **models**.
+---
 
-Abaixo, uma figura que ajuda a compreender o caminho percorrido para, por exemplo, efetuar o cadastro de um usuário:
+## O que vem depois
 
+O Star.Art é um projeto em evolução. Algumas ideias para o futuro:
 
-![image](https://github.com/user-attachments/assets/d576f178-0da6-437e-b5c9-658e3ebaf6ca)
+- Novos módulos e níveis de dificuldade
+- Conteúdos teóricos antes dos quizzes
+- Ranking entre usuários
+- Mais animações e efeitos visuais
+- Versão mobile ainda mais fluida
 
+---
 
+## Uma última palavra
 
-**Entendi o que é um recurso e gostaria de adicionar um novo ao meu projeto! Como faz?**  
-- Primeiro, crie a tabela no Banco de Dados referente a este recurso. Exemplos de recursos comuns de serem adicionados ao projeto no primeiro semestre: Silo, Aquário, Sala, Andar, Endereço, Mercado, Prateleira, Unidade, Carro, Caminhão...  
-- Assim que criada a tabela, faça todo o caminho de **front-end → routes → controllers → models** replicando o que já existe!  
-- Exemplo, se você quiser a funcionalidade de adicionar um novo Aquário, deve criar arquivos referentes ao aquario nos diretórios e replicar também as funções.  
-- Dica: A implementação de AVISO já contém o CRUD completo! :wink:
- 
-### Fontes bibliográficas
+O Star.Art não quer só ensinar astronomia. Quer lembrar que aprender é uma forma de entretenimento — e que cada coisa nova que você entende abre uma porta para um mundo que antes parecia distante.
 
-[1] https://datatracker.ietf.org/doc/html/rfc2396  
-[2] https://datatracker.ietf.org/doc/html/rfc7231
+**O Universo é grande. O conhecimento é o que nos permite chegar mais longe.**

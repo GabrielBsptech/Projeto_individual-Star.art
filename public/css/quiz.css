@@ -30,7 +30,8 @@ body {
   position: absolute;
   border-radius: 50%;
   opacity: 0.55;
-  animation: flutuar 14s ease-in-out infinite;
+  will-change: transform;
+  animation: flutuar 38s ease-in-out infinite;
 }
 
 /* Marte usando a imagem do projeto */
@@ -43,33 +44,52 @@ body {
   filter: drop-shadow(0 0 50px rgba(255, 120, 60, 0.25));
 }
 
-/* planeta azul */
+/* Saturno */
 .p2 {
-  width: 230px;
-  height: 230px;
-  top: 8%;
-  right: -80px;
-  background: radial-gradient(circle at 32% 30%, #8fc3ff, #2a5d9c 55%, #0a1a2e 100%);
-  box-shadow: inset -30px -20px 60px rgba(0, 0, 0, 0.65), 0 0 70px rgba(80, 150, 255, 0.25);
-  animation-duration: 18s;
-  animation-delay: -5s;
+  width: 260px;
+  height: 260px;
+  top: 6%;
+  right: -90px;
+  background: url("../assets/imgs/saturno_image.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 45px rgba(210, 190, 140, 0.25));
+  animation-duration: 46s;
+  animation-delay: -12s;
 }
 
-/* planeta rochoso */
+/* Júpiter */
 .p3 {
-  width: 130px;
-  height: 130px;
-  right: 16%;
-  bottom: 9%;
-  background: radial-gradient(circle at 35% 30%, #e0c09a, #7a5230 60%, #2a1a10 100%);
-  box-shadow: inset -16px -12px 32px rgba(0, 0, 0, 0.65);
-  animation-duration: 22s;
-  animation-delay: -9s;
+  width: 170px;
+  height: 170px;
+  right: 14%;
+  bottom: 8%;
+  background: url("../assets/imgs/jupiter_image.png") center / contain no-repeat;
+  filter: drop-shadow(0 0 40px rgba(220, 170, 120, 0.22));
+  animation-duration: 54s;
+  animation-delay: -25s;
 }
 
 @keyframes flutuar {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-18px); }
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(18px, -22px, 0) rotate(8deg);
+  }
+  50% {
+    transform: translate3d(-10px, -38px, 0) rotate(-6deg);
+  }
+  75% {
+    transform: translate3d(-24px, -14px, 0) rotate(4deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planeta {
+    animation: none;
+  }
 }
 
 /* caixa principal */
