@@ -1,23 +1,15 @@
 const formLogin = document.getElementById("formLogin");
 const botaoLogin = formLogin.querySelector("button[type='submit']");
 const loading = document.getElementById("loading");
-
 const inputEmail = document.getElementById("email");
 const inputSenha = document.getElementById("senha");
 
 // mostra (ou limpa, se a mensagem for vazia) a frase de erro
 function mostrarErro(input, idErro, mensagem) {
   const erro = document.getElementById(idErro);
-
-  if (mensagem) {
-    erro.textContent = mensagem;
-    erro.classList.add("mostrar");
-    if (input) input.classList.add("invalido");
-  } else {
-    erro.textContent = "";
-    erro.classList.remove("mostrar");
-    if (input) input.classList.remove("invalido");
-  }
+  erro.textContent = mensagem;
+  erro.classList.toggle("mostrar", !!mensagem);
+  if (input) input.classList.toggle("invalido", !!mensagem);
 }
 
 function limparErros() {
@@ -27,12 +19,12 @@ function limparErros() {
 }
 
 // some com o erro assim que a pessoa volta a digitar
-inputEmail.addEventListener("input", function () {
+inputEmail.addEventListener("input", () => {
   mostrarErro(inputEmail, "erroEmail", "");
   mostrarErro(null, "erroGeral", "");
 });
 
-inputSenha.addEventListener("input", function () {
+inputSenha.addEventListener("input", () => {
   mostrarErro(inputSenha, "erroSenha", "");
   mostrarErro(null, "erroGeral", "");
 });
@@ -67,10 +59,7 @@ formLogin.addEventListener("submit", async (e) => {
     const resposta = await fetch("/usuarios/autenticar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        emailServer: email,
-        senhaServer: senha
-      })
+      body: JSON.stringify({ emailServer: email, senhaServer: senha })
     });
 
     if (resposta.status === 403) {
@@ -78,9 +67,7 @@ formLogin.addEventListener("submit", async (e) => {
       return;
     }
 
-    if (!resposta.ok) {
-      throw new Error(await resposta.text());
-    }
+    if (!resposta.ok) throw new Error(await resposta.text());
 
     const dados = resposta.status === 204 ? {} : await resposta.json();
 

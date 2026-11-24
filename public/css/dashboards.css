@@ -1,4 +1,5 @@
 :root {
+  --fundo-estrelas: url("../assets/imgs/fundoestrela.jpg");
   --bg: #000;
   --surface: #1c1c1c;
   --border: #2f2f2f;
@@ -8,7 +9,6 @@
   --card-text: #000;
   --card-muted: #7a7a7a;
   --blue: #3b82f6;
-  --red: #8b1f1f;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -151,12 +151,23 @@ main {
 .module .row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 6px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
 }
-.module .row span:last-child { color: #c9c9c9; }
+.module-name { color: #eaeaea; }
+.module-meta { display: block; font-size: 13px; color: var(--muted); }
 
-.bar { height: 8px; border-radius: 4px; background: #2c2c2c; overflow: hidden; }
-.bar i { display: block; height: 100%; background: var(--blue); border-radius: 4px; }
+.badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge.nao-iniciado { background: #2c2c2c; color: #a3a3a3; }
+.badge.andamento { background: rgba(59, 130, 246, 0.18); color: #7eb0ff; }
+.badge.dominado { background: rgba(34, 197, 94, 0.18); color: #6ee7a0; }
 
 .btn-start {
   width: 100%;

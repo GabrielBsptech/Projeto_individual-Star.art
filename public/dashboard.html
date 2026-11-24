@@ -20,184 +20,50 @@
     <div class="avatar" aria-hidden="true"><i class="fa-solid fa-user"></i></div>
     <span class="greeting" id="greeting">Olá,</span>
     <span class="nav-spacer"></span>
-    <a class="nav-link" href="homepage.html">Ver aulas</a>
+    <a class="nav-link"></a>
+    <a class="nav-link" href="homepage.html">Homepage</a>
     <a class="btn-exit" href="index.html">Sair</a>
   </header>
 
   <main>
     <section class="stats" aria-label="Resumo">
-      <article class="stat">
-        <span class="info" title="Módulos com ao menos uma tentativa"></span>
-        <h2><img class="kpi-icon" src="assets/imgs/icon-conteudos.png" alt="" onerror="this.style.display='none'">Assuntos respondidos</h2>
+      <div class="stat">
+        <h2><img class="kpi-icon" src="assets/icon/respondidos_icon.png" alt="" >Assuntos respondidos</h2>
         <div class="value" id="statStudied">–</div>
-      </article>
+      </div>
 
-      <article class="stat">
-        <span class="info" title="Total de tentativas em todos os módulos"></span>
-        <h2><img class="kpi-icon" src="assets/imgs/icon-avaliacoes.png" alt="" onerror="this.style.display='none'">Avaliações realizadas</h2>
+      <div class="stat">
+        <h2><img class="kpi-icon" src="assets/icon/avaliações_icon.png" alt="">Quizzes realizados</h2>
         <div class="value" id="statAttempts">–</div>
-      </article>
+      </div>
 
-      <article class="stat">
-        <span class="info" title="Média dos módulos avaliados"></span>
-        <h2><img class="kpi-icon" src="assets/imgs/icon-acertos.png" alt="" onerror="this.style.display='none'">Média de acertos</h2>
-        <p class="sub">(Media do total feito)</p>
+      <div class="stat">
+        <h2><img class="kpi-icon" src="assets/icon/Acertos_icon.png" alt="">Média de acertos</h2>
+        <p class="sub">Média de todos os quizzes feitos</p>
         <div class="value" id="statAverage">–</div>
-      </article>
+      </div>
     </section>
 
     <section class="panels">
-      <article class="card chart-card">
+      <div class="card chart-card">
         <h3>Média de acertos por assunto</h3>
         <p class="sub">Tentativas de cada assunto</p>
         <div class="chart-wrap">
           <canvas id="chartModules" role="img"
             aria-label="Gráfico de barras com a média de aproveitamento por módulo"></canvas>
         </div>
-        <p class="chart-note">Galáxias: sem avaliação (não conta como zero)</p>
-      </article>
+      </div>
 
-      <article class="card modules">
+      <div class="card modules">
         <h4>Estado dos módulos</h4>
         <div id="modulesList"></div>
         <button class="btn-start" type="button" id="btnStart"></button>
-      </article>
+      </div>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script>
-    // ---- Usuário logado ----
-    const nomeUsuario = sessionStorage.NOME_USUARIO;
-    const idUsuario = sessionStorage.ID_USUARIO;
-
-    if (!nomeUsuario || !idUsuario) {
-      window.location.href = "login_index.html";
-    }
-
-    const aluno = { nome: nomeUsuario || "Visitante" };
-    const MODULOS = ["Sistema Solar", "Exoplanetas", "Buracos Negros", "Galáxias"];
-
-    document.getElementById("greeting").textContent = `Olá, ${aluno.nome}`;
-
-    function montarModulos(resumos) {
-      const mapa = new Map(resumos.map(r => [r.quiz, r]));
-      const nomes = [...MODULOS];
-
-      resumos.forEach(r => {
-        if (!nomes.includes(r.quiz)) nomes.push(r.quiz);
-      });
-
-      return nomes.map((nome, i) => {
-        const r = mapa.get(nome);
-        return {
-          id: String(i + 1).padStart(2, "0"),
-          nome: nome,
-          tentativas: r ? Number(r.tentativas) : 0,
-          media: r ? Number(r.media) : null
-        };
-      });
-    }
-
-    function renderizar(modulos) {
-      // ---- Estatísticas derivadas ----
-      const iniciados = modulos.filter(m => m.tentativas > 0);
-      const totalTent = modulos.reduce((s, m) => s + m.tentativas, 0);
-      const mediaGeral = iniciados.length > 0
-        ? Math.round(iniciados.reduce((s, m) => s + m.media, 0) / iniciados.length)
-        : 0;
-
-      document.getElementById("statStudied").textContent = `${iniciados.length}/${modulos.length}`;
-      document.getElementById("statAttempts").textContent = totalTent;
-      document.getElementById("statAverage").textContent = `${mediaGeral}%`;
-
-      // ---- Estado dos módulos ----
-      const lista = document.getElementById("modulesList");
-      lista.innerHTML = "";
-      modulos.forEach(m => {
-        const iniciado = m.tentativas > 0;
-        const el = document.createElement("div");
-        el.className = "module";
-        el.innerHTML = `
-          <div class="row">
-            <span>${m.id} ${m.nome}</span>
-            <span>${iniciado ? `${m.tentativas} tentativas` : "Não iniciado"}</span>
-          </div>
-          <div class="bar"><i style="width:${iniciado ? m.media : 0}%"></i></div>`;
-        lista.appendChild(el);
-      });
-
-      const proximo = modulos.find(m => m.tentativas === 0);
-      const btn = document.getElementById("btnStart");
-      if (proximo) {
-        btn.hidden = false;
-        btn.textContent = `Começar ${proximo.nome} ↗`;
-        btn.onclick = () => { window.location.href = "quiz.html"; };
-      } else {
-        btn.hidden = true;
-      }
-
-      // ---- Gráfico (Chart.js) ----
-      Chart.defaults.font.family = "Inter, system-ui, sans-serif";
-      Chart.defaults.color = "#b5b5b5";
-
-      new Chart(document.getElementById("chartModules"), {
-        type: "bar",
-        data: {
-          labels: modulos.map(m => m.nome),
-          datasets: [{
-            label: "Média de aproveitamento",
-            data: modulos.map(m => m.media), // null = sem barra
-            backgroundColor: "#3b82f6",
-            borderRadius: 4,
-            barPercentage: 0.3,
-            categoryPercentage: 1
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: {
-              min: 0,
-              max: 100,
-              ticks: { stepSize: 25, callback: v => v + "%", font: { size: 14, weight: "600" } },
-              grid: { color: "#2d2d2d" },
-              border: { display: false }
-            },
-            x: {
-              ticks: { font: { size: 14, weight: "600" } },
-              grid: { display: false },
-              border: { color: "#2d2d2d" }
-            }
-          },
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: { label: ctx => ctx.parsed.y == null ? "Sem avaliação" : `${ctx.parsed.y}%` }
-            }
-          }
-        }
-      });
-    }
-
-    async function carregarDashboard() {
-      let resumos = [];
-
-      try {
-        const resposta = await fetch(`/quiz/dashboard/${idUsuario}`);
-        if (resposta.ok) {
-          resumos = await resposta.json();
-        }
-      } catch (erro) {
-        console.error("Erro ao carregar os dados do quiz:", erro);
-      }
-
-      renderizar(montarModulos(resumos));
-    }
-
-    carregarDashboard();
-  </script>
+  <script src="js/dashboard.js"></script>
 </body>
 
 </html>

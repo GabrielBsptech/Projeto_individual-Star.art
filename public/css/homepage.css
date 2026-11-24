@@ -4,10 +4,6 @@
     padding: 0;
 }
 
-:root {
-    --red: #8b1f1f;
-}
-
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #ffffff;
@@ -77,52 +73,83 @@ body {
     aspect-ratio: 552 / 593;
 }
 
-.erro {
-  display: none;
-  margin-top: -14px;
-  margin-bottom: 16px;
-  font-size: 13px;
-  color: #c0392b;
-}
-
-.erro.mostrar {
-  display: block;
-}
-
-.erro-geral {
-  margin-top: 0;
-  text-align: center;
-}
-
-input.invalido {
-  border-color: #c0392b;
-}
-
-
 /* ---------- BOTÃO DO QUIZ ---------- */
-.cta {
-    display: flex;
-    justify-content: center;
-    margin: 10px 0 80px 0;
+/* CSS */
+.button-85 {
+  padding: 0.6em 2em;
+  border: none;
+  outline: none;
+  color: rgb(255, 255, 255);
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
-.btn-quiz {
-    display: inline-flex;
+.button-85:before {
+  content: "";
+  background: linear-gradient(
+    45deg,
+    #ff0000,
+    #ff7300,
+    #fffb00,
+    #48ff00,
+    #00ffd5,
+    #002bff,
+    #7a00ff,
+    #ff00c8,
+    #ff0000
+  );
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  animation: glowing-button-85 20s linear infinite;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.button-85:after {
+  z-index: -1;
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #222;
+  left: 0;
+  top: 0;
+  border-radius: 10px;
+}
+
+
+.h1{
     align-items: center;
-    justify-content: center;
-    min-width: 220px;
-    padding: 14px 48px;
-    background: #1c1c1c;
-    color: #fff;
-    border-radius: 999px;
-    font-family: "Inter", system-ui, sans-serif;
-    font-size: 17px;
-    font-weight: 600;
-    text-decoration: none;
-    cursor: pointer;
 }
 
-.btn-quiz:hover,
-.btn-quiz:focus {
-    filter: brightness(1.25);
+.grifo-escuro {
+  background-color: #572017; /* Fundo escuro para dar contraste */
+  color: #ffffff;            /* Cor da letra branca */
+  padding: 2px 6px;          /* Espaço interno para o texto não encostar na borda */
+  border-radius: 0px;        /* Cantos levemente arredondados (opcional) */
 }

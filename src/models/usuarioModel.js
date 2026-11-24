@@ -1,19 +1,20 @@
 var database = require("../database/config");
 
 function autenticar(email, senha) {
-    var instrucaoSql = `
-        SELECT id, nome, email FROM usuarios
-        WHERE email = '${email}' AND senha_hash = SHA2('${senha}', 256);
+    var sql = `
+        SELECT id, nome, email
+        FROM usuarios
+        WHERE email = ? AND senha_hash = SHA2(?, 256);
     `;
-    return database.executar(instrucaoSql);
+    return database.executar(sql, [email, senha]);
 }
 
 function cadastrar(nome, email, senha) {
-    var instrucaoSql = `
+    var sql = `
         INSERT INTO usuarios (nome, email, senha_hash)
-        VALUES ('${nome}', '${email}',SHA2('${senha}', 256));
+        VALUES (?, ?, SHA2(?, 256));
     `;
-    return database.executar(instrucaoSql);
+    return database.executar(sql, [nome, email, senha]);
 }
 
 module.exports = {

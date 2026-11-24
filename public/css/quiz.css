@@ -145,11 +145,6 @@ body {
   object-fit: contain;
 }
 
-.quiz-nav-icon[src^="data:"] {
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-}
-
 h1 {
   font-size: 24px;
   margin-bottom: 8px;
