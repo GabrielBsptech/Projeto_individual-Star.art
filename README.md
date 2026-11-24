@@ -68,6 +68,6 @@ O Star.Art é um projeto em evolução. Algumas ideias para o futuro:
 
 ## Uma última palavra
 
-O meu projeto Star.Art não quer só ensinar astronomia. Quer lembrar que aprender é uma forma de entretenimento — e que cada coisa nova que você entende abre uma porta para um mundo que antes parecia distante.
+O meu projeto Star.Art não quer só ensinar astronomia. Quer lembrar que aprender é uma forma de entretenimento e que cada coisa nova que você entende abre uma porta para um mundo que antes parecia distante.
 
 **O Universo é grande. O conhecimento é o que nos permite chegar mais longe.**
