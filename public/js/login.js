@@ -38,16 +38,14 @@ formLogin.addEventListener("submit", async (e) => {
   let valido = true;
 
   if (!email) {
-    mostrarErro(inputEmail, "erroEmail", "Digite seu email.");
-    valido = false;
+    alert(inputEmail, "erroEmail", "Digite seu email.");
   } else if (!email.includes("@")) {
-    mostrarErro(inputEmail, "erroEmail", "Digite um email válido.");
-    valido = false;
+    alert(inputEmail, "erroEmail", "Digite um email válido.");
   }
 
   if (!senha) {
-    mostrarErro(inputSenha, "erroSenha", "Digite sua senha.");
-    valido = false;
+    alert(inputSenha, "erroSenha", "Digite sua senha.");
+
   }
 
   if (!valido) return;

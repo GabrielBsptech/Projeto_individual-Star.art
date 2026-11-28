@@ -3,7 +3,7 @@ const idUsuario = sessionStorage.ID_USUARIO;
 
 const MODULOS = ["Sistema Solar", "Exoplanetas", "Buracos Negros", "Galáxias"];
 
-document.getElementById("greeting").textContent = `Olá, ${nomeUsuario || "Visitante"}`;
+document.getElementById("greeting").textContent = `Olá, ${nomeUsuario || "Usuário"}! Bem-vindo á dashboard`;
 
 function montarModulos(resumos) {
   const porNome = Object.fromEntries(resumos.map(r => [r.quiz, r]));

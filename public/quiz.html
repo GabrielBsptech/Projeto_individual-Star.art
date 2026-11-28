@@ -4,43 +4,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-      <link rel="icon" type="image/png" href="assets/icon/favicon2.png">
-
-  <title>Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="assets/icon/favicon2.png">
+  <title>Quiz · Star.Art</title>
   <link rel="stylesheet" href="css/quiz.css">
 </head>
 
 <body>
 
-  <div class="quiz-fundo" aria-hidden="true">
-    <span class="planeta p1"></span>
-    <span class="planeta p2"></span>
-    <span class="planeta p3"></span>
-  </div>
-
   <main class="quiz">
 
     <nav class="quiz-nav">
-      <a href="homepage.html">
-        <!-- Substitua o src abaixo pela imagem do ícone da homepage -->
-        <img class="quiz-nav-icon" src="assets/icon/home_icon.png" alt="Ícone da homepage">
-        Homepage
+      <a class="quiz-brand">
+        <img class="quiz-brand-logo" src="assets/imgs/logoWhite.png" alt="Star.Art">
+        <em>·</em> Quiz
       </a>
-      <a href="dashboard.html">
-        <!-- Substitua o src abaixo pela imagem do ícone da dashboard -->
-        <img class="quiz-nav-icon" src="assets/icon/dashboard_icon.png" alt="Ícone da dashboard">
-        Dashboard
-      </a>
+      <div class="quiz-nav-links">
+        <a href="homepage.html">
+          <img class="quiz-nav-icon" src="assets/icon/home_icon.png" alt="">
+          Homepage
+        </a>
+        <a href="dashboard.html">
+          <img class="quiz-nav-icon" src="assets/icon/dashboard_icon.png" alt="">
+          Dashboard
+        </a>
+      </div>
     </nav>
 
-    <!-- TELA 1: escolher o quiz -->
     <section id="telaMenu">
+      <p class="eyebrow">Módulo de estudo</p>
       <h1>Escolha um quiz</h1>
-      <p class="instrucao">Cada quiz tem 5 perguntas.</p>
+      <p class="instrucao">Cada quiz tem 5 perguntas. O feedback aparece a cada resposta.</p>
       <div id="listaQuizzes"></div>
     </section>
 
-    <!-- TELA 2: perguntas -->
     <section id="telaPergunta" hidden>
       <div class="topo">
         <span id="tituloQuiz"></span>
@@ -60,14 +59,16 @@
       <button id="botaoConfirmar" class="botao" disabled>Confirmar resposta</button>
     </section>
 
-    <!-- TELA 3: resultado -->
     <section id="telaResultado" hidden>
-      <h1>Quiz finalizado!</h1>
+      <p class="eyebrow">Resultado</p>
+      <h1>Quiz finalizado</h1>
       <p class="instrucao" id="textoResultado"></p>
       <p class="nota" id="notaResultado"></p>
 
-      <button id="botaoRepetir" class="botao">Tentar de novo</button>
-      <button id="botaoMenu" class="botao secundario">Voltar aos quizzes</button>
+      <div class="acoes">
+        <button id="botaoRepetir" class="botao">Tentar de novo</button>
+        <button id="botaoMenu" class="botao secundario">Voltar aos quizzes</button>
+      </div>
     </section>
 
   </main>

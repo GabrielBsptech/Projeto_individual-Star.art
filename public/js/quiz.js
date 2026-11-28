@@ -1,49 +1,47 @@
-const [telaMenu, telaPergunta, telaResultado] =
-  ["telaMenu", "telaPergunta", "telaResultado"].map(id => document.getElementById(id));
+const $ = id => document.getElementById(id);
 
-const listaQuizzes = document.getElementById("listaQuizzes");
-const tituloQuiz = document.getElementById("tituloQuiz");
-const contador = document.getElementById("contador");
-const textoPergunta = document.getElementById("pergunta");
-const divAlternativas = document.getElementById("alternativas");
-const feedback = document.getElementById("feedback");
-const feedbackTitulo = document.getElementById("feedbackTitulo");
-const feedbackTexto = document.getElementById("feedbackTexto");
-const botaoConfirmar = document.getElementById("botaoConfirmar");
-
-const textoResultado = document.getElementById("textoResultado");
-const notaResultado = document.getElementById("notaResultado");
-const botaoRepetir = document.getElementById("botaoRepetir");
-const botaoMenu = document.getElementById("botaoMenu");
+const [telaMenu, telaPergunta, telaResultado] = ["telaMenu", "telaPergunta", "telaResultado"].map($);
+const listaQuizzes = $("listaQuizzes");
+const alternativas = $("alternativas");
+const perguntaEl = $("pergunta");
+const tituloQuiz = $("tituloQuiz");
+const contador = $("contador");
+const feedback = $("feedback");
+const feedbackTitulo = $("feedbackTitulo");
+const feedbackTexto = $("feedbackTexto");
+const botaoConfirmar = $("botaoConfirmar");
+const textoResultado = $("textoResultado");
+const notaResultado = $("notaResultado");
+const botaoRepetir = $("botaoRepetir");
+const botaoMenu = $("botaoMenu");
 
 const LETRAS = ["A", "B", "C", "D"];
 
 let quizAtual = 0;
 let perguntaAtual = 0;
-let alternativaEscolhida = -1;
+let escolhida = -1;
 let acertos = 0;
-let respostaConfirmada = false;
+let confirmada = false;
 
 function mostrarTela(tela) {
   [telaMenu, telaPergunta, telaResultado].forEach(item => (item.hidden = item !== tela));
 }
 
-function criarOpcao(letra, texto, aoClicar) {
+function criarOpcao(letra, texto, indice) {
   const botao = document.createElement("button");
   botao.className = "opcao";
+  botao.dataset.indice = indice;
   botao.innerHTML =
     `<span class="letra">${letra}</span>` +
     `<span class="texto">${texto}</span>` +
     `<span class="marca">✓</span>`;
-  botao.addEventListener("click", aoClicar);
   return botao;
 }
 
 function montarMenu() {
   listaQuizzes.innerHTML = "";
   QUIZZES.forEach((quiz, i) => {
-    const botao = criarOpcao(i + 1, `${quiz.nome} - ${quiz.nivel}`, () => comecarQuiz(i));
-    listaQuizzes.appendChild(botao);
+    listaQuizzes.appendChild(criarOpcao(i + 1, `${quiz.nome} - ${quiz.nivel}`, i));
   });
   mostrarTela(telaMenu);
 }
@@ -60,29 +58,26 @@ function mostrarPergunta() {
   const quiz = QUIZZES[quizAtual];
   const pergunta = quiz.perguntas[perguntaAtual];
 
-  alternativaEscolhida = -1;
-  respostaConfirmada = false;
-
+  escolhida = -1;
+  confirmada = false;
   tituloQuiz.textContent = `${quiz.nome} - Nível ${quiz.nivel}`;
   contador.textContent = `${perguntaAtual + 1} / ${quiz.perguntas.length}`;
-  textoPergunta.textContent = pergunta.pergunta;
+  perguntaEl.textContent = pergunta.pergunta;
   feedback.hidden = true;
   botaoConfirmar.textContent = "Confirmar resposta";
   botaoConfirmar.disabled = true;
 
-  divAlternativas.innerHTML = "";
+  alternativas.innerHTML = "";
   pergunta.alternativas.forEach((texto, i) => {
-    const botao = criarOpcao(LETRAS[i], texto, () => selecionarAlternativa(i));
-    divAlternativas.appendChild(botao);
+    alternativas.appendChild(criarOpcao(LETRAS[i], texto, i));
   });
 }
 
 function selecionarAlternativa(indice) {
-  if (respostaConfirmada) return;
-
-  alternativaEscolhida = indice;
-  divAlternativas.querySelectorAll(".opcao").forEach((botao, posicao) => {
-    botao.classList.toggle("selecionada", posicao === indice);
+  if (confirmada) return;
+  escolhida = indice;
+  [...alternativas.children].forEach((botao, i) => {
+    botao.classList.toggle("selecionada", i === indice);
   });
   botaoConfirmar.disabled = false;
 }
@@ -90,29 +85,28 @@ function selecionarAlternativa(indice) {
 function confirmarResposta() {
   const quiz = QUIZZES[quizAtual];
 
-  if (respostaConfirmada) {
+  if (confirmada) {
     perguntaAtual++;
     perguntaAtual < quiz.perguntas.length ? mostrarPergunta() : mostrarResultado();
     return;
   }
 
   const pergunta = quiz.perguntas[perguntaAtual];
-  const botoes = divAlternativas.querySelectorAll(".opcao");
-  respostaConfirmada = true;
+  const botoes = [...alternativas.children];
+  confirmada = true;
   botoes[pergunta.correta].classList.add("certa");
 
-  if (alternativaEscolhida === pergunta.correta) {
+  if (escolhida === pergunta.correta) {
     acertos++;
     feedbackTitulo.textContent = "Resposta correta!";
   } else {
-    botoes[alternativaEscolhida].classList.add("errada");
+    botoes[escolhida].classList.add("errada");
     feedbackTitulo.textContent = "Resposta incorreta";
   }
 
   feedbackTexto.textContent = pergunta.explicacao;
   feedback.hidden = false;
   botoes.forEach(botao => (botao.disabled = true));
-
   botaoConfirmar.textContent =
     perguntaAtual === quiz.perguntas.length - 1 ? "Ver resultado" : "Próxima pergunta";
 }
@@ -132,7 +126,6 @@ async function salvarResultado(quiz) {
         total: quiz.perguntas.length
       })
     });
-
     if (!resposta.ok) throw new Error(await resposta.text());
   } catch (erro) {
     console.error("Erro ao salvar o resultado do quiz:", erro);
@@ -142,10 +135,20 @@ async function salvarResultado(quiz) {
 function mostrarResultado() {
   const quiz = QUIZZES[quizAtual];
   textoResultado.textContent = "Quiz: " + quiz.nome;
-  notaResultado.textContent = acertos + " / " + quiz.perguntas.length;
+  notaResultado.textContent = `${acertos} / ${quiz.perguntas.length}`;
   salvarResultado(quiz);
   mostrarTela(telaResultado);
 }
+
+listaQuizzes.addEventListener("click", evento => {
+  const botao = evento.target.closest(".opcao");
+  if (botao) comecarQuiz(Number(botao.dataset.indice));
+});
+
+alternativas.addEventListener("click", evento => {
+  const botao = evento.target.closest(".opcao");
+  if (botao) selecionarAlternativa(Number(botao.dataset.indice));
+});
 
 botaoConfirmar.addEventListener("click", confirmarResposta);
 botaoRepetir.addEventListener("click", () => comecarQuiz(quizAtual));
