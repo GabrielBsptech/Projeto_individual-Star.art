@@ -1,13 +1,4 @@
-                                                                                  
-                ####                                                                       ####
-  #########  ############    ##########     #### ######        ########      #### ##### ############
-############ ############   ############    ###########      ############    ########## ############
-#####    ####   ####        ####    #####   #####            ###      ###    ####          ####
- ##########     ####         ############   ####              ############   ####          ####
-   ##########   ####       ##############   #####           ##############   ####          ####
-####     ####   ####      #####     #####   #####     ####  ####     ####    ####          ####
-#############   ########## ################ #####     ####  ###############  ####          #########
-  ##########     #########  ########  ##### ####      ####   ########  ####  ####           ########
+![Star.art](public/assets/imgs/logoWhite.png)
 > Entenda o Universo, um passo de cada vez.
 
 O **Star.Art** é uma plataforma web de aprendizado sobre astronomia que mistura conteúdo, desafios e visualização de progresso. A ideia nasceu de uma vontade simples: **entreter enquanto ensina** — e, principalmente, mostrar que **o conhecimento abre o mundo** (e o Universo) para quem se permite explorar.
